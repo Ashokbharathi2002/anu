@@ -1,0 +1,53 @@
+@property --h {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: true;
+}
+
+img {
+  --w: 200px; /* image size */
+  --b: 12px;  /* the border */
+  --d: 20px;  /* the depth */
+  --c: #d81a14;
+  
+  width: var(--w);
+  aspect-ratio: 1;
+  --h: calc(var(--w)/2);
+  padding: var(--b) max(var(--h),var(--b));
+  box-sizing: border-box;
+  object-fit: cover;
+  object-position: center;
+  background: 
+    linear-gradient(#0004 0 0) no-repeat
+     50%/0% 100% var(--c) border-box;
+  clip-path: polygon(calc(var(--h) - var(--w)/2) 0,calc(100% + var(--w)/2 - var(--h)) 0,calc(100% + var(--w)/2 - var(--h)) 100%,100% 100%,calc(100% - var(--d)) calc(100% + var(--d)),var(--d) calc(100% + var(--d)),0 100%,calc(var(--h) - var(--w)/2) 100%);
+  box-shadow: 
+    0 var(--d) #0008,
+    0 0 0 999px var(--c);
+  transition: .6s linear;
+  transition-property: --h,background-size;
+  cursor: pointer;
+}
+
+img:hover {
+  background-size: 100% 100%;
+  --h: 0px;
+}
+
+/* for firefox you will have a small missalignement */
+@supports (-moz-appearance: none) {
+  img {
+    transition: .6s linear;
+  }
+}
+
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  grid-auto-flow: column;
+  gap: 80px;
+  background: #F1D4AF;
+}
